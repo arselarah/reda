@@ -18,10 +18,10 @@ export default function SaleCards() {
               ¡Lleva tu negocio al siguiente nivel!
             </p>
             <div className='hero-index_cta-buttons flex space-x-4'>
-              <button className='rounded-lg bg-black px-6 py-3 font-bold text-white hover:bg-green-500'>
+              <button className='rounded-lg border border-transparent bg-black px-6 py-3 font-bold text-white hover:border-black hover:bg-transparent hover:text-black'>
                 Comenzar Ahora
               </button>
-              <button className='rounded-lg border border-white bg-transparent px-6 py-3 font-bold text-white hover:bg-gray-200'>
+              <button className='rounded-lg border border-white bg-transparent px-6 py-3 font-bold text-white hover:border-black hover:text-black'>
                 Ver Demo
               </button>
             </div>
