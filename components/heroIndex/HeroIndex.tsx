@@ -1,29 +1,46 @@
 import React from 'react'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'motion/react'
+import { Archivo } from 'next/font/google'
+
+const archivo = Archivo({
+  subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700']
+})
 
 export default function HeroIndex() {
+  const refHero = useRef(null)
+  const { scrollYProgress: opacityHero } = useScroll({
+    target: refHero,
+    offset: ['.5 start', 'start start']
+  })
+  const opacity = useTransform(opacityHero, [0, 1], ['0%', '100%'])
   return (
     <>
-      <section>
-        <div className='hero-index_container relative flex min-h-screen w-full items-center justify-center'>
-          <div className='hero-index_overlay absolute left-0 top-0 h-full w-full bg-black/60'></div>
-          <div className='hero-index_content relative z-10 flex h-full w-full flex-col items-center justify-center px-4 text-center text-white'>
+      <section
+        ref={refHero}
+        className={` ${archivo.className} hero-index relative z-0 h-screen w-full overflow-hidden`}
+      >
+        <motion.div
+          style={{ opacity }}
+          className='hero-index_container fixed left-0 top-0 flex min-h-screen w-full items-end justify-center pb-[10vh]'
+        >
+          <div className='hero-index_overlay absolute left-0 top-0 h-full w-full'></div>
+          <div className='hero-index_content relative z-10 flex h-full w-full max-w-[75rem] flex-col items-center justify-center px-4 text-center text-black'>
             <h1 className='mb-4 text-4xl font-bold md:text-5xl lg:text-6xl'>
-              La plataforma todo en uno para gestionar tu negocio
+              Bienvenido a la nueva era digital en ventas
             </h1>
             <p className='mb-8 max-w-2xl text-lg md:text-xl'>
-              Simplifica la administración de tu empresa con nuestras
-              herramientas integradas y fáciles de usar.
+              Reda es el primer CRM optimizado para centralizar, automatizar y
+              escalar tu proceso comercial.
             </p>
-            <div className='hero-index_cta-buttons flex space-x-4'>
-              <button className='rounded-lg bg-[#00d262] px-6 py-3 font-bold text-white hover:bg-green-500'>
-                Comenzar Ahora
-              </button>
-              <button className='rounded-lg border border-gray-300 bg-transparent px-6 py-3 font-bold text-white hover:bg-gray-200 hover:text-black'>
-                Ver Demo
-              </button>
-            </div>
+            <p className='mb-8 max-w-2xl text-lg md:text-xl'>
+              Conecta marketing, ventas y finanzas en una sola plataforma con
+              tecnología inteligente, herramientas automatizadas y métricas en
+              tiempo real.
+            </p>
           </div>
-        </div>
+        </motion.div>
       </section>
     </>
   )

@@ -5,8 +5,9 @@ import NavBar from '@/components/navBar/NavBar'
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
-      <NavBar />
       <main className=''>
+        <NavBar />
+
         <Component {...pageProps} />
       </main>
     </>

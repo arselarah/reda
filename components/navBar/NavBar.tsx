@@ -10,7 +10,7 @@ export default function NavBar() {
   return (
     <>
       <section
-        className={` ${archivo.className} nav-bar border-b-1 relative flex h-[68px] w-full items-center justify-between border border-gray-100 bg-white px-4 text-white`}
+        className={` ${archivo.className} nav-bar border-b-1 sticky top-0 z-10 flex h-[68px] w-full items-center justify-between border border-gray-100 bg-white px-4 text-white`}
       >
         <article className='nav-bar_inner-container relative mx-auto flex h-full w-full max-w-[75rem] items-center justify-start'>
           <div className='nav-bar_logo-container relative flex h-full w-40 items-center justify-center text-black'>
