@@ -1,5 +1,3 @@
-'use client'
-
 import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
@@ -29,7 +27,7 @@ export default function CenteredRotatingIphone() {
       0.1,
       1000
     )
-    camera.current.position.set(0, 0, 5)
+    camera.current.position.set(0, 0, 4)
 
     // Inicializar renderizador
     renderer.current = new THREE.WebGLRenderer({
@@ -62,7 +60,7 @@ export default function CenteredRotatingIphone() {
       gltf => {
         const model = gltf.scene
         model.scale.set(0.15, 0.15, 0.15) // Tamaño reducido
-        model.position.set(0, 0, 0) // Centrado en la escena
+        model.position.set(0, -1, 0) // Centrado en la escena
         scene.current?.add(model)
         iphone.current = model
         setLoading(false)
@@ -137,135 +135,30 @@ export default function CenteredRotatingIphone() {
   }, [])
 
   return (
-    <div style={{ position: 'relative', minHeight: '200vh' }}>
+    <div className='relative min-h-[200vh]'>
       {/* Contenedor del iPhone FIJADO */}
-      <div
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          pointerEvents: 'none',
-          zIndex: -1
-        }}
-      >
+      <div className='fixed left-0 top-0 z-[-1] h-screen w-full'>
         <div
           ref={containerRef}
-          style={{
-            width: '100%',
-            height: '100%'
-          }}
+          className='flex h-full w-full items-center justify-end'
         />
 
         {loading && (
-          <div
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              color: 'white',
-              fontSize: '18px',
-              fontFamily: 'Arial, sans-serif',
-              backgroundColor: 'rgba(0,0,0,0.7)',
-              padding: '20px',
-              borderRadius: '10px'
-            }}
-          >
+          <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-[10px]'>
             Cargando modelo 3D...
           </div>
         )}
 
         {error && (
-          <div
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              color: 'white',
-              fontSize: '18px',
-              fontFamily: 'Arial, sans-serif',
-              backgroundColor: 'rgba(200,0,0,0.7)',
-              padding: '20px',
-              borderRadius: '10px'
-            }}
-          >
+          <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-[10px] text-lg text-white'>
             {error}
           </div>
         )}
       </div>
 
-      <div
-        style={{
-          position: 'fixed',
-          bottom: '20px',
-          right: '20px',
-          color: 'white',
-          fontFamily: 'Arial, sans-serif',
-          fontSize: '14px',
-          backgroundColor: 'rgba(0,0,0,0.7)',
-          padding: '10px 15px',
-          borderRadius: '20px',
-          zIndex: 100
-        }}
-      >
+      <div className='fixed bottom-5 right-5 z-50 rounded-3xl p-4 text-sm text-slate-500'>
         Rotación: {Math.round(scrollProgress * 360)}°
       </div>
-
-      {/* <div
-        style={{
-          padding: '100vh 20px 40px 20px', 
-          maxWidth: '800px',
-          margin: '0 auto',
-          fontFamily: 'Arial, sans-serif',
-          color: '#333',
-          position: 'relative',
-          zIndex: 5
-        }}
-      >
-        <h1>iPhone Rotando en el Centro</h1>
-        <p>
-          Desplázate hacia abajo para ver cómo el iPhone gira sobre su eje
-          mientras permanece fijo en el centro de la pantalla.
-        </p>
-
-        <div style={{ height: '50vh' }}></div>
-
-        <h2>Características</h2>
-        <ul>
-          <li>iPhone centrado en pantalla</li>
-          <li>Posición fija durante el scroll</li>
-          <li>Rotación controlada por scroll</li>
-          <li>Tamaño reducido para mejor visualización</li>
-        </ul>
-
-        <div style={{ height: '50vh' }}></div>
-
-        <h2>Más contenido</h2>
-        <p>Sigue desplazándote para ver la rotación completa del iPhone.</p>
-
-        <div style={{ height: '50vh' }}></div>
-
-        <div
-          style={{
-            textAlign: 'center',
-            padding: '30px',
-            backgroundColor: '#f5f5f5',
-            borderRadius: '10px',
-            marginTop: '40px'
-          }}
-        >
-          <h3>¡Rotación completada!</h3>
-          <p>El iPhone ha girado 360° gracias al scroll.</p>
-        </div>
-
-        <div style={{ height: '50vh' }}></div>
-      </div> */}
     </div>
   )
 }

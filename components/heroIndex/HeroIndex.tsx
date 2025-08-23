@@ -24,7 +24,7 @@ export default function HeroIndex() {
       >
         <motion.div
           style={{ opacity }}
-          className='hero-index_container fixed left-0 top-0 flex min-h-screen w-full items-end justify-center pb-[10vh]'
+          className='hero-index_container fixed left-0 top-0 flex min-h-screen w-full items-start justify-center pt-[15vh]'
         >
           <div className='hero-index_overlay absolute left-0 top-0 h-full w-full'></div>
           <div className='hero-index_content relative z-10 flex h-full w-full max-w-[75rem] flex-col items-center justify-center px-4 text-center text-black'>
