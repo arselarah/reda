@@ -2,6 +2,7 @@ import React from 'react'
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'motion/react'
 import { Archivo } from 'next/font/google'
+import Home from '../ejemplo/Three'
 
 const archivo = Archivo({
   subsets: ['latin'],
@@ -19,7 +20,7 @@ export default function HeroIndex() {
     <>
       <section
         ref={refHero}
-        className={` ${archivo.className} hero-index relative z-0 h-screen w-full overflow-hidden`}
+        className={` ${archivo.className} hero-index relative z-0 h-[200vh] w-full overflow-hidden`}
       >
         <motion.div
           style={{ opacity }}
@@ -41,6 +42,7 @@ export default function HeroIndex() {
             </p>
           </div>
         </motion.div>
+        <Home />
       </section>
     </>
   )

@@ -3,7 +3,7 @@ import React from 'react'
 export default function SaleCards() {
   return (
     <>
-      <section className='sale-cards relative z-[1] flex h-screen w-full items-center'>
+      <section className='sale-cards relative z-[1] flex h-screen w-full items-center bg-transparent'>
         <div className='sale-cards_container mx-auto flex w-full max-w-[75rem] flex-col items-start justify-center px-4'>
           <div className='max-w-[70%] bg-[radial-gradient(100%_162.87%_at_0_0,_#00b354_0%,_#00d262_100%)] p-8 lg:p-16'>
             <h2 className='mb-4 text-6xl font-bold text-white'>
