@@ -2,7 +2,7 @@ import React from 'react'
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'motion/react'
 import { Archivo } from 'next/font/google'
-import Home from '../ejemplo/Three'
+import CenteredIphone from '../ejemplo/Three'
 
 const archivo = Archivo({
   subsets: ['latin'],
@@ -42,7 +42,7 @@ export default function HeroIndex() {
             </p>
           </div>
         </motion.div>
-        <Home />
+        <CenteredIphone />
       </section>
     </>
   )

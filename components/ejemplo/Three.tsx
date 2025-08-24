@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 
-export default function CenteredRotatingIphone() {
+export default function CenteredIphone() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const sceneRef = useRef<HTMLDivElement>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [scrollProgress, setScrollProgress] = useState(0)
@@ -59,8 +60,10 @@ export default function CenteredRotatingIphone() {
       '/assets/3d/iphone_16_-_free.glb',
       gltf => {
         const model = gltf.scene
-        model.scale.set(0.15, 0.15, 0.15) // Tamaño reducido
-        model.position.set(0, -1, 0) // Centrado en la escena
+        model.scale.set(0.2, 0.2, 0.2) // Tamaño reducido
+        model.position.set(0, -0.8, -0.1) // Abajo (Y negativo) y frente (Z negativo)
+        model.rotation.set(-1, 0, 0) // Inclinado hacia arriba
+
         scene.current?.add(model)
         iphone.current = model
         setLoading(false)
@@ -111,21 +114,19 @@ export default function CenteredRotatingIphone() {
     }
   }, [])
 
-  // Manejar evento de scroll - SOLO ROTACIÓN
+  // Manejar evento de scroll - Interpolación de rotación
   useEffect(() => {
     const handleScroll = () => {
-      if (!iphone.current) return
+      if (!iphone.current || !sceneRef.current) return
 
       const scrollY = window.scrollY
-      const documentHeight =
-        document.documentElement.scrollHeight - window.innerHeight
-      const progress = Math.min(scrollY / documentHeight, 1)
+      const sceneHeight = sceneRef.current.clientHeight - window.innerHeight
+      const progress = Math.min(scrollY / sceneHeight, 1)
 
       setScrollProgress(progress)
 
-      // SOLO ROTACIÓN - el iPhone se queda en el centro
-      const rotationAngle = progress * Math.PI * 2 // Rotación completa (360°)
-      iphone.current.rotation.y = rotationAngle
+      // Interpolar la rotación desde la posición inicial (-1) hasta frontal (0)
+      iphone.current.rotation.x = THREE.MathUtils.lerp(-1, 0, progress)
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -135,29 +136,27 @@ export default function CenteredRotatingIphone() {
   }, [])
 
   return (
-    <div className='relative min-h-[200vh]'>
+    <div className='relative min-h-[200vh]' ref={sceneRef}>
       {/* Contenedor del iPhone FIJADO */}
-      <div className='fixed left-0 top-0 z-[-1] h-screen w-full'>
-        <div
-          ref={containerRef}
-          className='flex h-full w-full items-center justify-end'
-        />
+      <div className='relative z-[-1] flex h-screen w-full items-center justify-start'>
+        <div ref={containerRef} className='fixed top-0 h-screen w-full'></div>
 
         {loading && (
-          <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-[10px]'>
+          <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-[10px] bg-black/70 p-5 text-white'>
             Cargando modelo 3D...
           </div>
         )}
 
         {error && (
-          <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-[10px] text-lg text-white'>
+          <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-[10px] bg-red-500/70 p-5 text-white'>
             {error}
           </div>
         )}
       </div>
 
-      <div className='fixed bottom-5 right-5 z-50 rounded-3xl p-4 text-sm text-slate-500'>
-        Rotación: {Math.round(scrollProgress * 360)}°
+      {/* Indicador de progreso (opcional) */}
+      <div className='fixed bottom-5 right-5 z-50 rounded-3xl bg-black/70 p-4 text-sm text-white'>
+        Progreso: {Math.round(scrollProgress * 100)}%
       </div>
     </div>
   )
