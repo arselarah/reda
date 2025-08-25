@@ -31,11 +31,11 @@ export default function HeroIndex() {
             <h1 className='mb-4 text-4xl font-bold md:text-5xl lg:text-6xl'>
               Bienvenido a la nueva era digital en ventas
             </h1>
-            <p className='mb-8 max-w-2xl text-lg md:text-xl'>
+            {/* <p className='mb-8 max-w-2xl text-lg md:text-xl'>
               Reda es el primer CRM optimizado para centralizar, automatizar y
               escalar tu proceso comercial.
-            </p>
-            <p className='mb-8 max-w-2xl text-lg md:text-xl'>
+            </p> */}
+            <p className='mb-8 max-w-2xl text-lg text-[#888888] md:text-xl'>
               Conecta marketing, ventas y finanzas en una sola plataforma con
               tecnología inteligente, herramientas automatizadas y métricas en
               tiempo real.
