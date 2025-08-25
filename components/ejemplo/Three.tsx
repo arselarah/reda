@@ -12,7 +12,7 @@ export default function CenteredIphone() {
   const scene = useRef<THREE.Scene>()
   const camera = useRef<THREE.PerspectiveCamera>()
   const renderer = useRef<THREE.WebGLRenderer>()
-  const iphone = useRef<THREE.Group>()
+  const iphone = useRef<THREE.Group & { initialScale?: number }>()
 
   useEffect(() => {
     if (!containerRef.current) return
@@ -59,10 +59,11 @@ export default function CenteredIphone() {
     loader.load(
       '/assets/3d/iphone_16_-_free.glb',
       gltf => {
-        const model = gltf.scene
-        model.scale.set(0.2, 0.2, 0.2) // Tamaño reducido
-        model.position.set(0, -0.8, -0.1) // Abajo (Y negativo) y frente (Z negativo)
-        model.rotation.set(-1, 0, 0) // Inclinado hacia arriba
+        const model = gltf.scene as THREE.Group & { initialScale?: number }
+        model.scale.set(0.3, 0.3, 0.3)
+        model.position.set(0, -0.8, -0.1)
+        model.rotation.set(-1.2, 0, 0)
+        model.initialScale = 0.2 // Guardar escala inicial
 
         scene.current?.add(model)
         iphone.current = model
@@ -114,7 +115,7 @@ export default function CenteredIphone() {
     }
   }, [])
 
-  // Manejar evento de scroll - Interpolación de rotación
+  // Manejar evento de scroll - Animación en fases con escalado
   useEffect(() => {
     const handleScroll = () => {
       if (!iphone.current || !sceneRef.current) return
@@ -125,8 +126,53 @@ export default function CenteredIphone() {
 
       setScrollProgress(progress)
 
-      // Interpolar la rotación desde la posición inicial (-1) hasta frontal (0)
-      iphone.current.rotation.x = THREE.MathUtils.lerp(-1, 0, progress)
+      // Definir las fases de la animación
+      const scalePhase = 0.3 // 30% del scroll para completar cambio de tamaño
+      const rotationPhase = 0.6 // 60% del scroll para completar rotación
+
+      if (progress <= scalePhase) {
+        // FASE 1: Cambio de tamaño y posición vertical (0% - 30% del scroll)
+        const scaleProgress = progress / scalePhase
+
+        // Rotación progresiva (solo 70% de la rotación completa)
+        iphone.current.rotation.x = THREE.MathUtils.lerp(
+          -1.2,
+          -0.36, // -1.2 + (0 - (-1.2)) * 0.7 = -0.36
+          scaleProgress
+        )
+
+        // Reducción de escala de 0.3 a 0.15
+        iphone.current.scale.setScalar(
+          THREE.MathUtils.lerp(0.3, 0.15, scaleProgress)
+        )
+
+        // Elevación vertical de -0.8 a -0.2
+        iphone.current.position.y = THREE.MathUtils.lerp(
+          -0.8,
+          -0.2,
+          scaleProgress
+        )
+      } else if (progress <= rotationPhase) {
+        // FASE 2: Terminar la rotación (30% - 60% del scroll)
+        const rotationProgress =
+          (progress - scalePhase) / (rotationPhase - scalePhase)
+
+        // Completar la rotación (últimos 30%)
+        iphone.current.rotation.x = THREE.MathUtils.lerp(
+          -0.36,
+          0,
+          rotationProgress
+        )
+
+        // Mantener tamaño y posición ya completados
+        iphone.current.scale.setScalar(0.15)
+        iphone.current.position.y = -0.2
+      } else {
+        // FASE 3: Mantener estado final (60% - 100% del scroll)
+        iphone.current.rotation.x = 0 // Rotación frontal completa
+        iphone.current.scale.setScalar(0.15) // Tamaño reducido
+        iphone.current.position.y = -0.2 // Posición elevada
+      }
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -136,9 +182,9 @@ export default function CenteredIphone() {
   }, [])
 
   return (
-    <div className='relative min-h-[200vh]' ref={sceneRef}>
+    <div className='relative min-h-[300vh]' ref={sceneRef}>
       {/* Contenedor del iPhone FIJADO */}
-      <div className='relative z-[-1] flex h-screen w-full items-center justify-start'>
+      <div className='relative z-[1] flex h-screen w-full items-center justify-start'>
         <div ref={containerRef} className='fixed top-0 h-screen w-full'></div>
 
         {loading && (
@@ -155,9 +201,9 @@ export default function CenteredIphone() {
       </div>
 
       {/* Indicador de progreso (opcional) */}
-      <div className='fixed bottom-5 right-5 z-50 rounded-3xl bg-black/70 p-4 text-sm text-white'>
+      {/* <div className='fixed bottom-5 right-5 z-50 rounded-3xl bg-black/70 p-4 text-sm text-white'>
         Progreso: {Math.round(scrollProgress * 100)}%
-      </div>
+      </div> */}
     </div>
   )
 }

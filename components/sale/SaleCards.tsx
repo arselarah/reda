@@ -1,10 +1,16 @@
-import React from 'react'
+import { motion } from 'motion/react'
 
 export default function SaleCards() {
   return (
     <>
-      <section className='sale-cards relative z-[1] flex h-screen w-full items-center bg-gradient-to-b from-transparent from-10% via-white via-30% to-white to-90%'>
-        <div className='sale-cards_container relative mx-auto flex h-full w-full max-w-[75rem] flex-col items-start justify-center px-4 pt-36'>
+      <section className='sale-cards relative z-[1] flex h-screen w-full items-center bg-white'>
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          viewport={{ once: true }}
+          className='sale-cards_container relative mx-auto flex h-full w-full max-w-[75rem] flex-col items-start justify-center px-4'
+        >
           <div className='max-w-[70%] bg-[radial-gradient(100%_162.87%_at_0_0,_#00b354_0%,_#00d262_100%)] p-8 lg:p-16'>
             <h2 className='mb-4 text-6xl font-bold text-white'>
               Tu equipo merece una forma más inteligente de vender
@@ -26,7 +32,7 @@ export default function SaleCards() {
               </button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
     </>
   )

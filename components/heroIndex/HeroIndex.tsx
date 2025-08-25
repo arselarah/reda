@@ -20,7 +20,7 @@ export default function HeroIndex() {
     <>
       <section
         ref={refHero}
-        className={` ${archivo.className} hero-index relative z-0 h-[200vh] w-full overflow-hidden`}
+        className={` ${archivo.className} hero-index relative z-0 h-[300vh] w-full overflow-hidden`}
       >
         <motion.div
           style={{ opacity }}
