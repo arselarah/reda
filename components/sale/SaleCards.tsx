@@ -5,7 +5,7 @@ export default function SaleCards() {
     <>
       <section
         id='sale-cards-section'
-        className='sale-cards relative z-[1] flex h-screen w-full items-center bg-[#f4f4f4]'
+        className='sale-cards relative z-[1] flex h-screen w-full items-center bg-white'
       >
         <div className='sale-cards_container relative mx-auto flex h-full w-full max-w-[75rem] flex-row items-center justify-center px-4'>
           <div className='relative w-full'>
@@ -42,10 +42,10 @@ export default function SaleCards() {
                 height='315'
                 src='https://www.youtube.com/embed/drNhjmjugFI?si=wHfWFYnX3hg0HW1m'
                 title='YouTube video player'
-                frameborder='0'
+                // frameborder='0'
                 allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-                referrerpolicy='strict-origin-when-cross-origin'
-                allowfullscreen
+                referrerPolicy='strict-origin-when-cross-origin'
+                allowFullScreen
               ></iframe>
             </div>
           </div>

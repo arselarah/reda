@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+import { motion, useScroll, useTransform } from 'motion/react'
 
 export default function CenteredIphone() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -13,6 +14,13 @@ export default function CenteredIphone() {
   const camera = useRef<THREE.PerspectiveCamera>()
   const renderer = useRef<THREE.WebGLRenderer>()
   const iphone = useRef<THREE.Group & { initialScale?: number }>()
+
+  //const containerRefOpacity = useRef<HTMLDivElement>(null)
+  const { scrollYProgress: opacityIphone } = useScroll({
+    target: sceneRef,
+    offset: ['.95 end', 'end end']
+  })
+  const opacity = useTransform(opacityIphone, [0, 1], ['100%', '0%'])
 
   useEffect(() => {
     if (!containerRef.current) return
@@ -184,8 +192,14 @@ export default function CenteredIphone() {
   return (
     <div className='relative min-h-[300vh]' ref={sceneRef}>
       {/* Contenedor del iPhone FIJADO */}
-      <div className='relative z-[1] flex h-screen w-full items-center justify-start'>
-        <div ref={containerRef} className='fixed top-0 h-screen w-full'></div>
+      <motion.div
+        style={{ opacity }}
+        className='relative z-[1] h-screen w-full'
+      >
+        <motion.div
+          ref={containerRef}
+          className='fixed top-0 h-screen w-full'
+        ></motion.div>
 
         {loading && (
           <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-[10px] bg-black/70 p-5 text-white'>
@@ -198,7 +212,7 @@ export default function CenteredIphone() {
             {error}
           </div>
         )}
-      </div>
+      </motion.div>
 
       {/* Indicador de progreso (opcional) */}
       {/* <div className='fixed bottom-5 right-5 z-50 rounded-3xl bg-black/70 p-4 text-sm text-white'>
