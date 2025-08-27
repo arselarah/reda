@@ -8,14 +8,15 @@ export default function CenteredIphone() {
   const sceneRef = useRef<HTMLDivElement>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [scrollProgress, setScrollProgress] = useState(0)
-  const requestRef = useRef<number>()
-  const scene = useRef<THREE.Scene>()
-  const camera = useRef<THREE.PerspectiveCamera>()
-  const renderer = useRef<THREE.WebGLRenderer>()
-  const iphone = useRef<THREE.Group & { initialScale?: number }>()
+  // Eliminamos scrollProgress ya que no se usa
 
-  //const containerRefOpacity = useRef<HTMLDivElement>(null)
+  // Referencias corregidas con valores iniciales
+  const requestRef = useRef<number | undefined>(undefined)
+  const scene = useRef<THREE.Scene | null>(null)
+  const camera = useRef<THREE.PerspectiveCamera | null>(null)
+  const renderer = useRef<THREE.WebGLRenderer | null>(null)
+  const iphone = useRef<(THREE.Group & { initialScale?: number }) | null>(null)
+
   const { scrollYProgress: opacityIphone } = useScroll({
     target: sceneRef,
     offset: ['.95 end', 'end end']
@@ -23,7 +24,9 @@ export default function CenteredIphone() {
   const opacity = useTransform(opacityIphone, [0, 1], ['100%', '0%'])
 
   useEffect(() => {
-    if (!containerRef.current) return
+    // Guardamos la referencia actual en una variable para el cleanup
+    const currentContainerRef = containerRef.current
+    if (!currentContainerRef) return
 
     // Inicializar escena
     scene.current = new THREE.Scene()
@@ -32,7 +35,7 @@ export default function CenteredIphone() {
     // Inicializar cámara
     camera.current = new THREE.PerspectiveCamera(
       45,
-      containerRef.current.clientWidth / containerRef.current.clientHeight,
+      currentContainerRef.clientWidth / currentContainerRef.clientHeight,
       0.1,
       1000
     )
@@ -44,11 +47,11 @@ export default function CenteredIphone() {
       alpha: true
     })
     renderer.current.setSize(
-      containerRef.current.clientWidth,
-      containerRef.current.clientHeight
+      currentContainerRef.clientWidth,
+      currentContainerRef.clientHeight
     )
     renderer.current.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    containerRef.current.appendChild(renderer.current.domElement)
+    currentContainerRef.appendChild(renderer.current.domElement)
 
     // Luces para mejor visualización
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.6)
@@ -87,13 +90,13 @@ export default function CenteredIphone() {
 
     // Ajustar en redimensionamiento
     const handleResize = () => {
-      if (!containerRef.current || !camera.current || !renderer.current) return
+      if (!currentContainerRef || !camera.current || !renderer.current) return
       camera.current.aspect =
-        containerRef.current.clientWidth / containerRef.current.clientHeight
+        currentContainerRef.clientWidth / currentContainerRef.clientHeight
       camera.current.updateProjectionMatrix()
       renderer.current.setSize(
-        containerRef.current.clientWidth,
-        containerRef.current.clientHeight
+        currentContainerRef.clientWidth,
+        currentContainerRef.clientHeight
       )
     }
 
@@ -117,11 +120,15 @@ export default function CenteredIphone() {
       if (renderer.current) {
         renderer.current.dispose()
       }
-      if (containerRef.current && renderer.current?.domElement) {
-        containerRef.current.removeChild(renderer.current.domElement)
+      // Usamos la variable local currentContainerRef en lugar de containerRef.current
+      if (currentContainerRef && renderer.current?.domElement) {
+        // Verificamos si el elemento todavía existe antes de intentar removerlo
+        if (renderer.current.domElement.parentNode === currentContainerRef) {
+          currentContainerRef.removeChild(renderer.current.domElement)
+        }
       }
     }
-  }, [])
+  }, []) // Dependencies vacías ya que solo queremos que se ejecute una vez
 
   // Manejar evento de scroll - Animación en fases con escalado
   useEffect(() => {
@@ -131,8 +138,6 @@ export default function CenteredIphone() {
       const scrollY = window.scrollY
       const sceneHeight = sceneRef.current.clientHeight - window.innerHeight
       const progress = Math.min(scrollY / sceneHeight, 1)
-
-      setScrollProgress(progress)
 
       // Definir las fases de la animación
       const scalePhase = 0.3 // 30% del scroll para completar cambio de tamaño

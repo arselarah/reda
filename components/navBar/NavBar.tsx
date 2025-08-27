@@ -1,5 +1,6 @@
 import React from 'react'
 import { Archivo } from 'next/font/google'
+import Link from 'next/link'
 
 const archivo = Archivo({
   subsets: ['latin'],
@@ -16,31 +17,31 @@ export default function NavBar() {
           <div className='nav-bar_logo-container relative flex h-full w-40 items-center justify-center text-black'>
             <div className='nav-bar_logo flex h-full w-full items-center justify-center gap-2'>
               <div className='h-8 w-8 rounded-full bg-[#00d262]'></div>
-              <a href='/' className='text-3xl font-semibold tracking-wider'>
+              <Link href='/' className='text-3xl font-semibold tracking-wider'>
                 reda
-              </a>
+              </Link>
             </div>
           </div>
           <nav className='nav-bar_menu-container relative h-full w-full px-8'>
             <ul className='flex h-full w-full items-center justify-start space-x-4 font-semibold tracking-wider text-black'>
               <li>
-                <a href='/'>Inicio</a>
+                <Link href='/'>Inicio</Link>
               </li>
 
               <li>
-                <a href='/precios'>Precios</a>
+                <Link href='/precios'>Precios</Link>
               </li>
               <li>
-                <a href='/aprendizaje'>Aprendizaje</a>
+                <Link href='/aprendizaje'>Aprendizaje</Link>
               </li>
               <li>
-                <a href='/soporte'>Soporte</a>
+                <Link href='/soporte'>Soporte</Link>
               </li>
               <li>
-                <a href='/blog'>Blog</a>
+                <Link href='/blog'>Blog</Link>
               </li>
               <li>
-                <a href='/nosotros'>Nosotros</a>
+                <Link href='/nosotros'>Nosotros</Link>
               </li>
             </ul>
           </nav>
