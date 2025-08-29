@@ -5,7 +5,7 @@ export default function SaleCards() {
     <>
       <section
         id='sale-cards-section'
-        className='sale-cards relative z-[1] flex h-screen w-full items-center bg-white'
+        className='sale-cards relative z-[1] flex h-auto w-full items-center bg-white py-16'
       >
         <div className='sale-cards_container relative mx-auto flex h-full w-full max-w-[75rem] flex-row items-center justify-center px-4'>
           <div className='relative w-full'>
