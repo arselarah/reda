@@ -72,14 +72,14 @@ export default function index() {
         <SaleCards />
         <section className='w-full bg-white'>
           <div className='relative mx-auto flex h-full w-full max-w-[75rem] flex-col items-start justify-center gap-8 px-4 lg:flex-row-reverse lg:px-0'>
-            <div className='sticky top-0 flex h-screen w-[80rem] grow flex-col justify-center'>
-              <div className='relative w-full bg-blue-800 md:px-16 md:py-40'>
-                <h2 className='mb-4 text-6xl font-bold text-white lg:ml-52'>
+            <div className='relative top-0 flex w-full grow flex-col justify-start lg:sticky lg:h-screen lg:w-[80rem] lg:items-end lg:justify-center'>
+              <div className='relative flex min-h-[18rem] w-full items-center justify-center bg-[radial-gradient(100%_162.87%_at_0_0,_#00b354_0%,_#00d262_100%)] p-8 lg:min-h-[28rem] lg:p-16 lg:pl-60'>
+                <h2 className='mb-4 text-4xl font-bold text-white lg:text-6xl'>
                   Herramientas para maximizar tus resultados
                 </h2>
               </div>
             </div>
-            <div className='relative -mr-44 h-full w-[50%] py-[50%]'>
+            <div className='relative h-full w-full lg:-mr-44 lg:w-[50%] lg:py-[50%]'>
               {
                 // Grid of herramientas
                 herramientas.map(herramienta => (

@@ -35,7 +35,7 @@ export default function HeroIndex() {
               Reda es el primer CRM optimizado para centralizar, automatizar y
               escalar tu proceso comercial.
             </p> */}
-            <p className='mb-8 max-w-2xl text-lg text-[#888888] md:text-2xl'>
+            <p className='text-md mb-8 max-w-2xl text-[#888888] md:text-2xl'>
               Conecta marketing, ventas y finanzas en una sola plataforma con
               tecnología inteligente, herramientas automatizadas y métricas en
               tiempo real.

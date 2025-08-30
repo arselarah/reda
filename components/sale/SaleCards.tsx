@@ -5,21 +5,21 @@ export default function SaleCards() {
     <>
       <section
         id='sale-cards-section'
-        className='sale-cards relative z-[1] flex h-auto w-full items-center bg-white py-16'
+        className='sale-cards relative z-[1] flex w-full items-center bg-white py-16'
       >
-        <div className='sale-cards_container relative mx-auto flex h-full w-full max-w-[75rem] flex-row items-center justify-center px-4'>
-          <div className='relative w-full'>
+        <div className='sale-cards_container relative mx-auto flex w-full max-w-[75rem] flex-row items-center justify-center px-4'>
+          <div className='relative flex w-full flex-col gap-8'>
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
               viewport={{ once: true }}
-              className='max-w-[70%] bg-[radial-gradient(100%_162.87%_at_0_0,_#00b354_0%,_#00d262_100%)] p-8 lg:p-16'
+              className='bg-[radial-gradient(100%_162.87%_at_0_0,_#00b354_0%,_#00d262_100%)] p-8 lg:max-w-[70%] lg:p-16'
             >
-              <h2 className='mb-4 text-6xl font-bold text-white'>
+              <h2 className='mb-4 text-4xl font-bold text-white lg:text-6xl'>
                 Tu equipo merece una forma más inteligente de vender
               </h2>
-              <p className='mb-8 max-w-[50%] text-lg text-white'>
+              <p className='mb-8 text-lg text-white md:max-w-[50%]'>
                 Con Reda, optimizas cada interacción y conviertes leads en
                 clientes, asegurando que tu negocio crezca con una metodología
                 probada.
@@ -36,7 +36,7 @@ export default function SaleCards() {
                 </button>
               </div>
             </motion.div>
-            <div className='sale-cards_video absolute -bottom-8 right-0'>
+            <div className='sale-cards_video relative w-full lg:absolute lg:-bottom-8 lg:right-0 lg:w-[560px]'>
               <iframe
                 width='560'
                 height='315'
@@ -46,6 +46,7 @@ export default function SaleCards() {
                 allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
                 referrerPolicy='strict-origin-when-cross-origin'
                 allowFullScreen
+                className='relative aspect-video w-full lg:w-[560px]'
               ></iframe>
             </div>
           </div>

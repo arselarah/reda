@@ -195,7 +195,7 @@ export default function CenteredIphone() {
   }, [])
 
   return (
-    <div className='relative min-h-[300vh]' ref={sceneRef}>
+    <div className='relative min-h-[300vh] w-full md:block' ref={sceneRef}>
       {/* Contenedor del iPhone FIJADO */}
       <motion.div
         style={{ opacity }}

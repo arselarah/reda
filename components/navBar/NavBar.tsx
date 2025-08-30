@@ -22,7 +22,7 @@ export default function NavBar() {
               </Link>
             </div>
           </div>
-          <nav className='nav-bar_menu-container relative h-full w-full px-8'>
+          <nav className='nav-bar_menu-container relative hidden h-full w-full px-8 md:block'>
             <ul className='flex h-full w-full items-center justify-start space-x-4 font-semibold tracking-wider text-black'>
               <li>
                 <Link href='/'>Inicio</Link>
@@ -45,7 +45,7 @@ export default function NavBar() {
               </li>
             </ul>
           </nav>
-          <div className='nav-bar_cta-container relative flex h-full w-full items-center justify-end gap-4 tracking-wider text-black'>
+          <div className='nav-bar_cta-container relative hidden h-full w-full items-center justify-end gap-4 tracking-wider text-black md:flex'>
             <button className='rounded-lg border border-gray-300 bg-transparent px-[24px] py-[12px] font-bold text-black hover:bg-gray-200'>
               Ingresar
             </button>
