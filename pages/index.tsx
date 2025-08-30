@@ -34,32 +34,32 @@ const herramientas = [
   {
     title: 'Interconexiones inteligentes',
     description: 'Deja que la inteligenia artificial haga el trabajo por ti.',
-    imageUrl: '/assets/herramientas/pexels-kindelmedia-7579354.jpg',
+    imageUrl: '/assets/herramientas/pexels-a-darmel-7641842.jpg',
     link: '/tools/competitor-analyzer'
   },
   {
     title: 'Nube de contenidos',
     description:
       'Centraliza tu material de ventas, documentos, imágenes y más.',
-    imageUrl: '/assets/herramientas/pexels-pavel-danilyuk-7937211.jpg',
+    imageUrl: '/assets/herramientas/pexels-expect-best-79873-323705.jpg',
     link: '/tools/competitor-analyzer'
   },
   {
     title: 'Semáforo Reda',
     description: 'Gestiona tu embudo de ventas automaticamente.',
-    imageUrl: '/assets/herramientas/pexels-pavel-danilyuk-7937317.jpg',
+    imageUrl: '/assets/herramientas/pexels-expect-best-79873-323705.jpg',
     link: '/tools/competitor-analyzer'
   },
   {
     title: 'WhatsApp API ilimitado',
     description: 'Integra WhatsApp Business con líneas ilimitadas sin costo.',
-    imageUrl: '/assets/herramientas/pexels-pixabay-266812.jpg',
+    imageUrl: '/assets/herramientas/pexels-a-darmel-7641842.jpg',
     link: '/tools/competitor-analyzer'
   },
   {
     title: 'Webhooks y automatización',
     description: 'Programa acciones y optimiza tu flujo de trabajo.',
-    imageUrl: '/assets/herramientas/pexels-pixabay-280229.jpg',
+    imageUrl: '/assets/herramientas/pexels-a-darmel-7641842.jpg',
     link: '/tools/competitor-analyzer'
   }
 ]
@@ -73,8 +73,8 @@ export default function index() {
         <section className='w-full bg-white'>
           <div className='relative mx-auto flex h-full w-full max-w-[75rem] flex-col items-start justify-center gap-8 px-4 lg:flex-row-reverse lg:px-0'>
             <div className='sticky top-0 flex h-screen w-[80rem] grow flex-col justify-center'>
-              <div className='relative w-full bg-blue-800 p-16'>
-                <h2 className='mb-4 text-6xl font-bold text-white'>
+              <div className='relative w-full bg-blue-800 md:px-16 md:py-40'>
+                <h2 className='mb-4 text-6xl font-bold text-white lg:ml-52'>
                   Herramientas para maximizar tus resultados
                 </h2>
               </div>
